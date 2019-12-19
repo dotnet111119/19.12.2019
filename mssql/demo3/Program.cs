@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -11,6 +11,14 @@ namespace MSSQL1
 {
     class Program
     {
+        class Emplopyee
+        {
+            public int ID { get; set; }
+            public int Age { get; set; }
+            public string Name { get; set; }
+            public string Address { get; set;  }
+            public double Salary { get; set; }
+        }
         static void Main(string[] args)
         {
 
@@ -26,14 +34,17 @@ namespace MSSQL1
 
                 SqlDataReader reader = cmd.ExecuteReader(CommandBehavior.Default);
 
-                List<Object> list = new List<object>();
+                List<Emplopyee> list = new List<Emplopyee>();
                 while (reader.Read() == true)
                 {
                     Console.WriteLine($" {reader["ID"]} {reader["NAME"]} {reader["AGE"]} {reader["ADDRESS"]} {reader["SALARY"]}");
-                    var e = new
+                    var e = new Emplopyee
                     {
-                        Id = reader["ID"],
-                        firaName = reader["NAME"]
+                        ID = Convert.ToInt32(reader["ID"]),
+                        Name = reader["NAME"].ToString(),
+                        Age = Convert.ToInt32(reader["AGE"]),
+                        Address = reader["ADDRESS"].ToString(),
+                        Salary = Convert.ToDouble(reader["SALARY"]),
                     };
                     list.Add(e);
                 }
